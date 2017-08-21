@@ -1,12 +1,12 @@
 package com.lozasolutions.evernoteclient.features.main;
 
-import java.util.List;
-
 import com.lozasolutions.evernoteclient.features.base.MvpView;
+
+import java.util.List;
 
 public interface MainMvpView extends MvpView {
 
-    void showPokemon(List<String> pokemon);
+    void showNoteList(List<String> notes);
 
     void showProgress(boolean show);
 

@@ -34,6 +34,8 @@ public class EvernoteClientApplication extends MultiDexApplication {
             Sherlock.init(this);
             Traceur.enableLogging();
         }
+
+        registerActivityLifecycleCallbacks(new LoginChecker(getComponent().evernoteAPI()));
     }
 
     public AppComponent getComponent() {

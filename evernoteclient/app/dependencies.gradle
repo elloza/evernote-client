@@ -120,12 +120,13 @@ ext {
     glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
 
     evernote = "com.evernote:android-sdk:2.0.0-RC4"
+    evernote_intent  = "com.evernote:android-intent:1.0.1"
 
     googlePlayLibs = googlePlay.values()
     supportLibs = supportDeps.values()
     networkLibs = retrofit.values() + okHttp.values()
     rxJavaLibs = rxJava.values()
-    otherLibs = [butterKnife, timber, dagger, glide, evernote]
+    otherLibs = [butterKnife, timber, dagger, glide, evernote,evernote_intent]
 
     debugLibs = onlyDebug.values() + leakCannary
     releaseLibs = onlyRelease.values() + leakCannary

@@ -7,6 +7,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
 import com.lozasolutions.evernoteclient.features.common.ErrorView;
 import com.lozasolutions.evernoteclient.features.detail.DetailActivity;
+import com.lozasolutions.evernoteclient.features.login.LoginActivity;
 import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
 
 import java.util.List;
@@ -27,7 +30,7 @@ import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainMvpView, ErrorView.ErrorListener {
 
-    private static final int POKEMON_COUNT = 20;
+    private static final int NOTE_MAX = 20;
 
     @Inject
     PokemonAdapter pokemonAdapter;
@@ -50,8 +53,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-
-
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
@@ -65,14 +66,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.primary);
         swipeRefreshLayout.setColorSchemeResources(R.color.white);
-        swipeRefreshLayout.setOnRefreshListener(() -> mainPresenter.getPokemon(POKEMON_COUNT,true));
+        swipeRefreshLayout.setOnRefreshListener(() -> mainPresenter.getPokemon(NOTE_MAX,true));
 
         pokemonRecycler.setLayoutManager(new LinearLayoutManager(this));
         pokemonRecycler.setAdapter(pokemonAdapter);
         pokemonClicked();
         errorView.setErrorListener(this);
 
-        mainPresenter.getPokemon(POKEMON_COUNT,false);
+        mainPresenter.getPokemon(NOTE_MAX,false);
     }
 
     private void pokemonClicked() {
@@ -94,6 +95,28 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //setRecyclerViewPosition(0);
+
+        switch (item.getItemId()) {
+
+            case R.id.action_logout:
+                mainPresenter.logout();
+                startActivity(LoginActivity.getStartIntent(this));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
     public int getLayout() {
         return R.layout.activity_main;
     }
@@ -114,7 +137,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     }
 
     @Override
-    public void showPokemon(List<String> pokemon) {
+    public void showNoteList(List<String> pokemon) {
         pokemonAdapter.setPokemon(pokemon);
         pokemonRecycler.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
@@ -150,6 +173,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
     @Override
     public void onReloadData() {
-        mainPresenter.getPokemon(POKEMON_COUNT,true);
+        mainPresenter.getPokemon(NOTE_MAX,true);
     }
 }

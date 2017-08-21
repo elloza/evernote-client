@@ -18,5 +18,6 @@ public interface EvernoteAPI {
 
     Boolean isLoggedIn();
 
+    Boolean logout();
 
 }

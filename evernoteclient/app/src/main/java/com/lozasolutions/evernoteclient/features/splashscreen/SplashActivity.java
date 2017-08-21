@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
+import com.lozasolutions.evernoteclient.features.login.LoginActivity;
 import com.lozasolutions.evernoteclient.features.main.MainActivity;
 import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
 
@@ -21,7 +22,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
         if(splashPresenter.isAuthenticated()){
             startActivity(MainActivity.getStartIntent(this));
         }else{
-
+            startActivity(LoginActivity.getStartIntent(this));
         }
         finish();
     }

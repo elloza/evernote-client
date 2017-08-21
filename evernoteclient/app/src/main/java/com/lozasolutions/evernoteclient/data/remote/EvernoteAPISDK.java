@@ -84,5 +84,10 @@ public class EvernoteAPISDK implements EvernoteAPI {
         return session.isLoggedIn();
     }
 
+    @Override
+    public Boolean logout() {
+        return session.logOut();
+    }
+
 
 }

@@ -3,7 +3,7 @@
     <color name="primary">#0fb673</color>
     <color name="primary_dark">#008051</color>
     <!--<color name="primary_light">#FFCDD2</color>-->
-    <color name="accent">#ffffff</color>
+    <color name="accent">@color/primary</color>
     <!--<color name="primary_text">#212121</color>-->
     <!--<color name="secondary_text">#727272</color>-->
     <!--<color name="icons">@color/white</color>-->

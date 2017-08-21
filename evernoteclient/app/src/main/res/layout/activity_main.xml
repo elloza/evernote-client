@@ -10,6 +10,7 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            app:popupTheme="@style/PopupMenuStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -30,7 +31,7 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.lozasolutions.features.common.ErrorView
+    <com.lozasolutions.evernoteclient.features.common.ErrorView
         android:id="@+id/view_error"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

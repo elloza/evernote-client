@@ -16,4 +16,8 @@
     <string name="error_reload">Reload</string>
     <string name="title_activity_maps_sample">Map</string>
     <string name="error_something_bad_happened">Something bad happened. Please try again.</string>
+    <string name="logo_evernote_description">logo evernote</string>
+    <string name="log_in">Log In</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

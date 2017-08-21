@@ -60,7 +60,7 @@ public class MainPresenterTest {
         mainPresenter.getPokemon(10,false);
 
         verify(mockMainMvpView, times(2)).showProgress(anyBoolean());
-        verify(mockMainMvpView).showPokemon(pokemonList);
+        verify(mockMainMvpView).showNoteList(pokemonList);
         verify(mockMainMvpView, never()).showError(any(Throwable.class));
     }
 
@@ -72,6 +72,6 @@ public class MainPresenterTest {
 
         verify(mockMainMvpView, times(2)).showProgress(anyBoolean());
         verify(mockMainMvpView).showError(any(Throwable.class));
-        verify(mockMainMvpView, never()).showPokemon(ArgumentMatchers.anyList());
+        verify(mockMainMvpView, never()).showNoteList(ArgumentMatchers.anyList());
     }
 }
