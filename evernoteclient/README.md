@@ -1,9 +1,6 @@
-# AndroidMvpStarter [![Build Status](https://travis-ci.org/androidstarters/android-starter.svg?branch=master)](https://travis-ci.org/androidstarters/android-starter)
+# Evernote-Client
+A simple Evernote Client
 
-[![Backers on Open Collective](https://opencollective.com/android-starter/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/android-starter/sponsors/badge.svg)](#sponsors) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20MVP%20Starter-blue.svg?style=flat)](https://android-arsenal.com/details/3/5232)
-[![Join the chat at https://gitter.im/android-starter/Lobby](https://badges.gitter.im/android-starter/Lobby.svg)](https://gitter.im/android-starter/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-An MVP Boilerplate to save me having to create the same project over from scratch every time! :)
 <p align="center">
   <img src="http://g.recordit.co/L5selg7aIv.gif" width="250">
   <img src="http://g.recordit.co/xt4o5wTySc.gif">
@@ -108,64 +105,4 @@ app:unitAndEspressoDebugTestCoverage
 
 ```sh
 app:unitAndEspressoReleaseTestCoverage
-```
-
-### Created & Maintained By
-[Ravindra Kumar](https://github.com/ravidsrk) ([@ravidsrk](https://www.twitter.com/ravidsrk))
-
-> If you found this repo helpful or you learned something from the source code and want to thank me, consider [buying me a cup of](https://www.paypal.me/ravidsrk) :coffee:
-
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="graphs/contributors"><img src="https://opencollective.com/android-starter/contributors.svg?width=890" /></a>
-
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/android-starter#backer)]
-
-<a href="https://opencollective.com/android-starter#backers" target="_blank"><img src="https://opencollective.com/android-starter/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/android-starter#sponsor)]
-
-<a href="https://opencollective.com/android-starter/sponsor/0/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/1/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/2/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/3/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/4/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/5/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/6/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/7/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/8/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/android-starter/sponsor/9/website" target="_blank"><img src="https://opencollective.com/android-starter/sponsor/9/avatar.svg"></a>
-
-
-
-## License
-```
-MIT License
-
-Copyright (c) 2017 Ravindra Kumar
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 ```

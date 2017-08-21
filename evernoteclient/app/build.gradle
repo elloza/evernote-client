@@ -17,16 +17,21 @@ android {
     defaultConfig {
         defaultPublishConfig 'debug'
 
-        applicationId "com.lozasolutions"
+        applicationId "com.lozasolutions.evernoteclient"
         minSdkVersion 19
         targetSdkVersion 26
-        testInstrumentationRunner "com.lozasolutions.runner.RxAndroidJUnitRunner"
+        testInstrumentationRunner "com.lozasolutions.evernoteclient.runner.RxAndroidJUnitRunner"
         versionCode 1000
         // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
         versionName '0.1.0'
 
-        buildConfigField("String", "POKEAPI_API_URL",
-                "\"${PokeapiApiUrl}\"")
+        multiDexEnabled true
+
+        buildConfigField "String", "EVERNOTE_CONSUMER_KEY", (project.hasProperty('EVERNOTE_CONSUMER_KEY') ? "\"$EVERNOTE_CONSUMER_KEY\"" : "\"Your consumer key\"")
+        buildConfigField "String", "EVERNOTE_CONSUMER_SECRET", (project.hasProperty('EVERNOTE_CONSUMER_SECRET') ? "\"$EVERNOTE_CONSUMER_SECRET\"" : "\"Your consumer secret\"")
+        buildConfigField "String", "EVERNOTE_DEVELOPER_KEY", (project.hasProperty('EVERNOTE_DEVELOPER_KEY') ? "\"$EVERNOTE_DEVELOPER_KEY\"" : "null")
+        buildConfigField "String", "EVERNOTE_NOTE_STORE_URL", (project.hasProperty('EVERNOTE_NOTE_STORE_URL') ? "\"$EVERNOTE_NOTE_STORE_URL\"" : "null")
+
     }
     buildTypes {
         release {
