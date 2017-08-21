@@ -18,7 +18,7 @@ The application must satisfy the following functional requirements:
 
 The initial propose for the application flow is displayed in the following diagram:
 
-![Basic flowchart]()
+![Basic flowchart](https://github.com/elloza/evernote-client/blob/master/diagrams/basic_flowchart.png)
 
 
 ## References and Notes
