@@ -55,6 +55,10 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                 noteListObtained -> {
                     getView().showProgress(false);
 
+                    if(noteList != null){
+                        noteList.clear();
+                    }
+
                     noteList = noteListObtained.getNotes();
                     getView().showNoteList(noteListObtained.getNotes());
                 },
@@ -62,6 +66,26 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                     getView().showProgress(false);
                     getView().showError(throwable);
                 });
+    }
+
+    public void createNote(Note note){
+
+        checkViewAttached();
+        getView().showProgress(true);
+
+        evernoteAPI.addNote(note,null).compose(SchedulerUtils.ioToMain()).subscribe(
+                createdNote -> {
+                    getView().showProgress(false);
+                    noteList.add(createdNote);
+                    getView().showNoteList(noteList);
+                },
+                throwable -> {
+                    getView().showProgress(false);
+                    getView().showNoteList(noteList);
+                });
+
+
+
     }
 
     public boolean logout(){

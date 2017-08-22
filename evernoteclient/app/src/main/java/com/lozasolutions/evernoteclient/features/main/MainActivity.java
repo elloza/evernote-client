@@ -13,21 +13,24 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.evernote.edam.type.Note;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
 import com.lozasolutions.evernoteclient.features.common.ErrorView;
 import com.lozasolutions.evernoteclient.features.detail.DetailActivity;
 import com.lozasolutions.evernoteclient.features.login.LoginActivity;
 import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
+import com.lozasolutions.evernoteclient.util.ViewUtil;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity implements MainMvpView, ErrorView.ErrorListener, NoteAdapter.OnNoteClickListener {
+public class MainActivity extends BaseActivity implements MainMvpView, ErrorView.ErrorListener, NoteAdapter.OnNoteClickListener, CreateNoteDialogFragment.CreateNormalNoteListener {
 
     private static final int NOTE_MAX = 20;
 
@@ -47,6 +50,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
     @BindView(R.id.swipe_to_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.floatingButtonMenu)
+    FloatingActionsMenu floatingButtonMenu;
+
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -70,6 +77,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
         noteAdapter = new NoteAdapter(this);
         pokemonRecycler.setAdapter(noteAdapter);
         errorView.setErrorListener(this);
+
 
         mainPresenter.getNotes(NOTE_MAX,false);
     }
@@ -97,6 +105,25 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+    @OnClick(R.id.createNoteHandWritten)
+    public void onClickCreateNewHandWrittenNote(View v){
+
+
+    }
+
+
+    @OnClick(R.id.createNoteNormal)
+    public void onClickCreateNewNormalNote(View v){
+
+        new CreateNoteDialogFragment().show(getSupportFragmentManager(), CreateNoteDialogFragment.TAG);
+        floatingButtonMenu.collapse();
+
+    }
+
+
     @Override
     public int getLayout() {
         return R.layout.activity_main;
@@ -153,6 +180,16 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     }
 
     @Override
+    public void showNoteCreationError(Throwable error) {
+        ViewUtil.showSnackbar(swipeRefreshLayout, "Create note failed");
+    }
+
+    @Override
+    public void showNoteCreationSuccessfully() {
+        ViewUtil.showSnackbar(swipeRefreshLayout, "Create note success");
+    }
+
+    @Override
     public void onReloadData() {
         mainPresenter.getNotes(NOTE_MAX,true);
     }
@@ -160,5 +197,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     @Override
     public void onNoteClicked(Note note) {
         startActivity(DetailActivity.getStartIntent(this, note.getGuid(),note.getTitle()));
+    }
+
+    @Override
+    public void onNoteCreated(Note note) {
+        mainPresenter.createNote(note);
     }
 }

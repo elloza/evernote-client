@@ -122,7 +122,7 @@ ext {
     evernote = "com.evernote:android-sdk:2.0.0-RC4"
     evernote_intent  = "com.evernote:android-intent:1.0.1"
     drawingview = "com.rm:freedrawview:1.1.2"
-    floatingbutton = "com.github.clans:fab:1.6.4"
+    floatingbutton = "com.getbase:floatingactionbutton:1.10.1"
 
     googlePlayLibs = googlePlay.values()
     supportLibs = supportDeps.values()

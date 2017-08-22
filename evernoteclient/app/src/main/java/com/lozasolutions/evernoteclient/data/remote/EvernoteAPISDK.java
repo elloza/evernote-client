@@ -49,8 +49,6 @@ public class EvernoteAPISDK implements EvernoteAPI {
                 }
             };
 
-            session.getEvernoteClientFactory().getNoteStoreClient().createNoteAsync(note, noteEvernoteCallback);
-
             if (note.getNotebookGuid() == null && linkedNotebook != null) {
 
                 session.getEvernoteClientFactory().getLinkedNotebookHelper(linkedNotebook).createNoteInLinkedNotebookAsync(note,noteEvernoteCallback);

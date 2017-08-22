@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -34,17 +34,10 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
-    <style name="MenuButtonsNormal">
-        <item name="fab_size">normal</item>
-        <item name="fab_colorNormal">@color/primary</item>
-        <item name="fab_colorPressed">@color/primary_dark</item>
-        <item name="fab_colorRipple">@color/primary_dark</item>
-    </style>
-
-    <style name="MenuButtonsNormal.Green">
-        <item name="fab_colorNormal">#43A047</item>
-        <item name="fab_colorPressed">#2E7D32</item>
-        <item name="fab_colorRipple">#1B5E20</item>
+    <style name="menu_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:colorAccent">@color/primary</item>
     </style>
 
 </resources>
