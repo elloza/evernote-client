@@ -21,7 +21,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    EvernoteSession provideEvernoteSession(@ApplicationContext Context context) {
+    EvernoteAPI provideEvernoteAPI(@ApplicationContext Context context) {
 
         String CONSUMER_KEY = "Your consumer key";
         String CONSUMER_SECRET = "Your consumer secret";
@@ -46,19 +46,14 @@ public class ApiModule {
         }
 
         //Set up the Evernote singleton session, use EvernoteSession.getInstance() later
-        return new EvernoteSession.Builder(context)
+        EvernoteSession session =  new EvernoteSession.Builder(context)
                 .setEvernoteService(EVERNOTE_SERVICE)
                 .setSupportAppLinkedNotebooks(SUPPORT_APP_LINKED_NOTEBOOKS)
                 .setForceAuthenticationInThirdPartyApp(true)
                 .build(consumerKey, consumerSecret)
                 .asSingleton();
 
-    }
-
-    @Provides
-    @Singleton
-    EvernoteAPI provideEvernoteAPI(EvernoteSession evernoteSession) {
-        return new EvernoteAPISDK(evernoteSession);
+        return new EvernoteAPISDK(session);
     }
 
 }

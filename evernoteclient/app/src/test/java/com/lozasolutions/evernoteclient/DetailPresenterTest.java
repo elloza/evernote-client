@@ -55,7 +55,7 @@ public class DetailPresenterTest {
         Pokemon pokemon = TestDataFactory.makePokemon("id");
         when(mockDataManager.getPokemon(anyString())).thenReturn(Single.just(pokemon));
 
-        detailPresenter.getPokemon(anyString());
+        detailPresenter.getNoteComplete(anyString());
 
         verify(mockDetailMvpView, times(2)).showProgress(anyBoolean());
         verify(mockDetailMvpView).showPokemon(pokemon);
@@ -66,7 +66,7 @@ public class DetailPresenterTest {
     public void getPokemonDetailReturnsError() throws Exception {
         when(mockDataManager.getPokemon("id")).thenReturn(Single.error(new RuntimeException()));
 
-        detailPresenter.getPokemon("id");
+        detailPresenter.getNoteComplete("id");
 
         verify(mockDetailMvpView, times(2)).showProgress(anyBoolean());
         verify(mockDetailMvpView).showError(any(Throwable.class));

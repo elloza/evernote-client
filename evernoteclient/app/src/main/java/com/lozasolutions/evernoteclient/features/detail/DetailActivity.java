@@ -2,31 +2,34 @@ package com.lozasolutions.evernoteclient.features.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
+import com.evernote.edam.type.Note;
+import com.evernote.edam.type.Resource;
+import com.lozasolutions.evernoteclient.R;
+import com.lozasolutions.evernoteclient.features.base.BaseActivity;
+import com.lozasolutions.evernoteclient.features.common.ErrorView;
+import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
+import com.lozasolutions.evernoteclient.util.EvernoteUtil;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import com.lozasolutions.evernoteclient.R;
-import com.lozasolutions.evernoteclient.data.model.response.Pokemon;
-import com.lozasolutions.evernoteclient.data.model.response.Statistic;
-import com.lozasolutions.evernoteclient.features.base.BaseActivity;
-import com.lozasolutions.evernoteclient.features.common.ErrorView;
-import com.lozasolutions.evernoteclient.features.detail.widget.StatisticView;
-import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
 import timber.log.Timber;
 
 public class DetailActivity extends BaseActivity implements DetailMvpView, ErrorView.ErrorListener {
 
-    public static final String EXTRA_POKEMON_NAME = "EXTRA_POKEMON_NAME";
+    public static final String EXTRA_NOTE_GUID = "EXTRA_NOTE_GUID";
+    public static final String EXTRA_NOTE_TITLE = "EXTRA_NOTE_TITLE";
 
     @Inject
     DetailPresenter detailPresenter;
@@ -34,8 +37,8 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
     @BindView(R.id.view_error)
     ErrorView errorView;
 
-    @BindView(R.id.image_pokemon)
-    ImageView pokemonImage;
+    @BindView(R.id.image_note)
+    ImageView imageNote;
 
     @BindView(R.id.progress)
     ProgressBar progress;
@@ -43,17 +46,20 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.layout_stats)
-    LinearLayout statLayout;
+    @BindView(R.id.layout_content)
+    View contentLayout;
 
-    @BindView(R.id.layout_pokemon)
-    View pokemonLayout;
+    @BindView(R.id.webView)
+    WebView webView;
 
-    private String pokemonName;
+    private String noteGuid;
+    private String noteTitle;
+    private String mHtml = "";
 
-    public static Intent getStartIntent(Context context, String pokemonName) {
+    public static Intent getStartIntent(Context context, String GUID, String title) {
         Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(EXTRA_POKEMON_NAME, pokemonName);
+        intent.putExtra(EXTRA_NOTE_GUID, GUID);
+        intent.putExtra(EXTRA_NOTE_TITLE, title);
         return intent;
     }
 
@@ -61,19 +67,27 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        pokemonName = getIntent().getStringExtra(EXTRA_POKEMON_NAME);
-        if (pokemonName == null) {
-            throw new IllegalArgumentException("Detail Activity requires a pokemon name@");
+        noteGuid = getIntent().getStringExtra(EXTRA_NOTE_GUID);
+
+        if (noteGuid == null) {
+            throw new IllegalArgumentException("Detail Activity need GUID");
         }
+
+        noteTitle = getIntent().getStringExtra(EXTRA_NOTE_TITLE);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-        setTitle(pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1));
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        setTitle(noteTitle);
+
+        if (savedInstanceState == null) {
+            webView.setWebViewClient(new WebViewClient());
+        }
 
         errorView.setErrorListener(this);
-
-        detailPresenter.getPokemon(pokemonName);
+        detailPresenter.getNoteComplete(noteGuid);
     }
 
     @Override
@@ -97,19 +111,33 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
     }
 
     @Override
-    public void showPokemon(Pokemon pokemon) {
-        if (pokemon.sprites != null && pokemon.sprites.frontDefault != null) {
-            Glide.with(this).load(pokemon.sprites.frontDefault).into(pokemonImage);
+    public void showNoteInformation(Note note) {
+
+        Resource resource = EvernoteUtil.getFirstImageResource(note);
+
+        //TODO
+
+        //Content
+
+        if(resource != null){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(resource.getData().getBody(), 0, resource.getData().getSize());
+            // TODO load asynchrously this Glide.with(this).load(bitmap).into(imageNote);
+            imageNote.setImageBitmap(bitmap);
+            imageNote.setVisibility(View.VISIBLE);
+        }else{
+            imageNote.setVisibility(View.GONE);
         }
-        pokemonLayout.setVisibility(View.VISIBLE);
+
+        contentLayout.setVisibility(View.VISIBLE);
+
+        mHtml = note.getContent();
+
+        String data = "<html><head></head><body>" + mHtml + "</body></html>";
+
+        webView.loadDataWithBaseURL("", data, "text/html", "UTF-8", null);
+
     }
 
-    @Override
-    public void showStat(Statistic statistic) {
-        StatisticView statisticView = new StatisticView(this);
-        statisticView.setStat(statistic);
-        statLayout.addView(statisticView);
-    }
 
     @Override
     public void showProgress(boolean show) {
@@ -119,13 +147,14 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
 
     @Override
     public void showError(Throwable error) {
-        pokemonLayout.setVisibility(View.GONE);
+        contentLayout.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
-        Timber.e(error, "There was a problem retrieving the pokemon...");
+        Timber.e(error, "There was a problem retrieving the note...");
     }
+
 
     @Override
     public void onReloadData() {
-        detailPresenter.getPokemon(pokemonName);
+        detailPresenter.getNoteComplete(noteGuid);
     }
 }

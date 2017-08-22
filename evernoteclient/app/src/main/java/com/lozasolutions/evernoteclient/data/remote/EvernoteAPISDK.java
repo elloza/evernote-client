@@ -3,6 +3,7 @@ package com.lozasolutions.evernoteclient.data.remote;
 import com.evernote.client.android.EvernoteSession;
 import com.evernote.client.android.asyncclient.EvernoteCallback;
 import com.evernote.edam.notestore.NoteList;
+import com.evernote.edam.type.LinkedNotebook;
 import com.evernote.edam.type.Note;
 
 import io.reactivex.Single;
@@ -27,7 +28,7 @@ public class EvernoteAPISDK implements EvernoteAPI {
     }
 
     @Override
-    public Single<Note> addNote(Note note) {
+    public Single<Note> addNote(Note note, LinkedNotebook linkedNotebook) {
 
         return Single.create(e -> {
 
@@ -49,6 +50,42 @@ public class EvernoteAPISDK implements EvernoteAPI {
             };
 
             session.getEvernoteClientFactory().getNoteStoreClient().createNoteAsync(note, noteEvernoteCallback);
+
+            if (note.getNotebookGuid() == null && linkedNotebook != null) {
+
+                session.getEvernoteClientFactory().getLinkedNotebookHelper(linkedNotebook).createNoteInLinkedNotebookAsync(note,noteEvernoteCallback);
+
+            } else {
+                session.getEvernoteClientFactory().getNoteStoreClient().createNoteAsync(note, noteEvernoteCallback);
+            }
+
+        });
+    }
+
+    @Override
+    public Single<Note> getNote(String GUID) {
+        return Single.create(e -> {
+
+            EvernoteCallback<Note> noteEvernoteCallback = new EvernoteCallback<Note>() {
+                @Override
+                public void onSuccess(Note result) {
+                    if (!e.isDisposed()) {
+                        e.onSuccess(result);
+                    }
+                }
+
+                @Override
+                public void onException(Exception exception) {
+
+                    if (!e.isDisposed()) {
+                        e.onError(new Throwable(exception));
+                    }
+                }
+            };
+
+            session.getEvernoteClientFactory().getNoteStoreClient()
+                    .getNoteAsync(GUID,true,true,true,true,
+                    noteEvernoteCallback);
 
         });
     }
@@ -88,6 +125,5 @@ public class EvernoteAPISDK implements EvernoteAPI {
     public Boolean logout() {
         return session.logOut();
     }
-
 
 }

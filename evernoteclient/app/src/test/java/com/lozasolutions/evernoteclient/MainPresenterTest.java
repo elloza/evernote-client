@@ -57,7 +57,7 @@ public class MainPresenterTest {
         List<String> pokemonList = TestDataFactory.makePokemonNamesList(10);
         when(mockDataManager.getPokemonList(10)).thenReturn(Single.just(pokemonList));
 
-        mainPresenter.getPokemon(10,false);
+        mainPresenter.getNotes(10,false);
 
         verify(mockMainMvpView, times(2)).showProgress(anyBoolean());
         verify(mockMainMvpView).showNoteList(pokemonList);
@@ -68,7 +68,7 @@ public class MainPresenterTest {
     public void getPokemonReturnsError() throws Exception {
         when(mockDataManager.getPokemonList(10)).thenReturn(Single.error(new RuntimeException()));
 
-        mainPresenter.getPokemon(10,false);
+        mainPresenter.getNotes(10,false);
 
         verify(mockMainMvpView, times(2)).showProgress(anyBoolean());
         verify(mockMainMvpView).showError(any(Throwable.class));

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,11 +26,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_pokemon"
+            android:id="@+id/recycler_notes"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
     </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <com.lozasolutions.evernoteclient.features.common.ErrorView
         android:id="@+id/view_error"
@@ -43,5 +46,44 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        fab:menu_icon="@drawable/ic_add"
+        fab:menu_animationDelayPerItem="0"
+        fab:menu_colorNormal="#43A047"
+        fab:menu_colorPressed="#2E7D32"
+        fab:menu_colorRipple="#1B5E20"
+        fab:menu_labels_maxLines="2"
+        fab:menu_labels_ellipsize="end"
+        app:layout_anchorGravity="right|bottom"
+        android:layout_gravity="top"
+        app:layout_anchor="@+id/swipe_to_refresh">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="@string/new_note_normal"
+            style="@style/MenuButtonsNormal.Green" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="@string/new_note_handwritten"
+            style="@style/MenuButtonsNormal.Green" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

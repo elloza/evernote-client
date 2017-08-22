@@ -20,4 +20,8 @@
     <string name="log_in">Log In</string>
     <string name="action_logout">Logout</string>
     <string name="action_refresh">Refresh</string>
+    <string name="created_at">Created at:</string>
+    <string name="updated_at">Updated at:</string>
+    <string name="new_note_normal">New input text note</string>
+    <string name="new_note_handwritten">New handwritten note</string>
 </resources>

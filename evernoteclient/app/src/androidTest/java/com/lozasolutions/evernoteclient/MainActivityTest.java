@@ -65,7 +65,7 @@ public class MainActivityTest {
 
         onView(withText(pokemonList.get(0))).perform(click());
 
-        onView(withId(R.id.image_pokemon)).check(matches(isDisplayed()));
+        onView(withId(R.id.image_note)).check(matches(isDisplayed()));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.lozasolutions.evernoteclient.data.remote;
 
 import com.evernote.edam.notestore.NoteList;
+import com.evernote.edam.type.LinkedNotebook;
 import com.evernote.edam.type.Note;
 
 import io.reactivex.Single;
@@ -12,7 +13,9 @@ import io.reactivex.Single;
 public interface EvernoteAPI {
 
 
-    Single<Note> addNote(Note note);
+    Single<Note> addNote(Note note, LinkedNotebook linkedNotebook);
+
+    Single<Note> getNote(String GUID);
 
     Single<NoteList> getNotes(ISpecification query, Integer offset, Integer maxResults);
 

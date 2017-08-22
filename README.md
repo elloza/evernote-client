@@ -6,14 +6,14 @@ This is a small client for Evernote SDK.
 
 The application must satisfy the following functional requirements:
 
-- [ ] Login screen
-- [ ] Main screen with a list showing user's notes.
+- [X] Login screen
+- [X] Main screen with a list showing user's notes.
 - [ ] A toolbar button for sorting the list by the title of the note.
 - [ ] A floating button to create new notes. For creating notes will be 2 options:
 	* Handwritten notes: a new screen for drawing will be presented to the user and then the image of the note will be processed by an OCR. The OCR result will be saved as the content of the note and the image will be attached to the created note.
 	* Normal text input notes
 - [ ] An activity to show the detail of the note (Not edit)
-- [ ] Logout of the application
+- [X] Logout of the application
 
 
 The initial propose for the application flow is displayed in the following diagram:

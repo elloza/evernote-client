@@ -11,8 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import com.evernote.edam.type.Note;
 import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
 import com.lozasolutions.evernoteclient.features.common.ErrorView;
@@ -25,15 +25,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity implements MainMvpView, ErrorView.ErrorListener {
+public class MainActivity extends BaseActivity implements MainMvpView, ErrorView.ErrorListener, NoteAdapter.OnNoteClickListener {
 
     private static final int NOTE_MAX = 20;
 
-    @Inject
-    PokemonAdapter pokemonAdapter;
+    NoteAdapter noteAdapter;
 
     @Inject
     MainPresenter mainPresenter;
@@ -44,7 +42,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     @BindView(R.id.progress)
     ProgressBar progressBar;
 
-    @BindView(R.id.recycler_pokemon)
+    @BindView(R.id.recycler_notes)
     RecyclerView pokemonRecycler;
 
     @BindView(R.id.swipe_to_refresh)
@@ -66,33 +64,16 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.primary);
         swipeRefreshLayout.setColorSchemeResources(R.color.white);
-        swipeRefreshLayout.setOnRefreshListener(() -> mainPresenter.getPokemon(NOTE_MAX,true));
+        swipeRefreshLayout.setOnRefreshListener(() -> mainPresenter.getNotes(NOTE_MAX,true));
 
         pokemonRecycler.setLayoutManager(new LinearLayoutManager(this));
-        pokemonRecycler.setAdapter(pokemonAdapter);
-        pokemonClicked();
+        noteAdapter = new NoteAdapter(this);
+        pokemonRecycler.setAdapter(noteAdapter);
         errorView.setErrorListener(this);
 
-        mainPresenter.getPokemon(NOTE_MAX,false);
+        mainPresenter.getNotes(NOTE_MAX,false);
     }
 
-    private void pokemonClicked() {
-        Disposable disposable =
-                pokemonAdapter
-                        .getPokemonClick()
-                        .subscribe(
-                                pokemon ->
-                                        startActivity(DetailActivity.getStartIntent(this, pokemon)),
-                                throwable -> {
-                                    Timber.e(throwable, "Pokemon click failed");
-                                    Toast.makeText(
-                                            this,
-                                            R.string.error_something_bad_happened,
-                                            Toast.LENGTH_LONG)
-                                            .show();
-                                });
-        mainPresenter.addDisposable(disposable);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,8 +118,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     }
 
     @Override
-    public void showNoteList(List<String> pokemon) {
-        pokemonAdapter.setPokemon(pokemon);
+    public void showNoteList(List<Note> pokemon) {
+        noteAdapter.setNoteList(pokemon);
         pokemonRecycler.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
@@ -147,7 +128,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     public void showProgress(boolean show) {
         if (show) {
             if (pokemonRecycler.getVisibility() == View.VISIBLE
-                    && pokemonAdapter.getItemCount() > 0) {
+                    && noteAdapter.getItemCount() > 0) {
                 swipeRefreshLayout.setRefreshing(true);
             } else {
                 progressBar.setVisibility(View.VISIBLE);
@@ -173,6 +154,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
     @Override
     public void onReloadData() {
-        mainPresenter.getPokemon(NOTE_MAX,true);
+        mainPresenter.getNotes(NOTE_MAX,true);
+    }
+
+    @Override
+    public void onNoteClicked(Note note) {
+        startActivity(DetailActivity.getStartIntent(this, note.getGuid(),note.getTitle()));
     }
 }
