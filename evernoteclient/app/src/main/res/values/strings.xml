@@ -32,6 +32,7 @@
     <string name="note_title">Note Title</string>
     <string name="note_content">Note Content</string>
     <string name="create_new_note">Create new note</string>
+    <string name="add_title_dialog">Add note title</string>
     <string name="attach_image">Attach image</string>
     <string name="create">Create</string>
     <string name="new_note">New note</string>

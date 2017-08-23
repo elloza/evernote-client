@@ -12,7 +12,7 @@ import java.util.List;
 public class EvernoteUtil {
 
     private final static String MIME_JPEG = "image/jpeg";
-    private final static String MIME_PNG = "image/png";
+    public final static String MIME_PNG = "image/png";
 
     public static Boolean hasImageResource(Note note) {
 

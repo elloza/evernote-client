@@ -7,6 +7,7 @@ import com.lozasolutions.evernoteclient.data.remote.EvernoteAPI;
 import com.lozasolutions.evernoteclient.features.ocr.OCRManager;
 import com.lozasolutions.evernoteclient.injection.ApplicationContext;
 import com.lozasolutions.evernoteclient.injection.module.AppModule;
+import com.snatik.storage.Storage;
 
 import javax.inject.Singleton;
 
@@ -24,5 +25,7 @@ public interface AppComponent {
     EvernoteAPI evernoteAPI();
 
     OCRManager ocrManager();
+
+    Storage storage();
 
 }

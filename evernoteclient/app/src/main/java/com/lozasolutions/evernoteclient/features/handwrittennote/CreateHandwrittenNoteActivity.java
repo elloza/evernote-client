@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
+import com.lozasolutions.evernoteclient.features.main.MainActivity;
 import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
 import com.lozasolutions.evernoteclient.util.FileHelper;
 import com.rm.freedrawview.FreeDrawSerializableState;
@@ -36,7 +38,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 public class CreateHandwrittenNoteActivity extends BaseActivity implements CreateHandwrittenNoteMvpView,SeekBar.OnSeekBarChangeListener,
-        PathRedoUndoCountChangeListener, FreeDrawView.DrawCreatorListener, PathDrawnListener {
+        PathRedoUndoCountChangeListener, FreeDrawView.DrawCreatorListener, PathDrawnListener, TitleDialogFragment.DialogTitleListener {
 
     private static final int THICKNESS_STEP = 2;
     private static final int THICKNESS_MAX = 80;
@@ -54,6 +56,9 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
     @BindView(R.id.slider_alpha)
     SeekBar mAlphaBar;
+
+    @BindView(R.id.progress)
+    RelativeLayout progress;
 
     @Inject
     CreateHandwrittenNotePresenter createHandwrittenNotePresenter;
@@ -153,7 +158,7 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
         switch (item.getItemId()) {
             case R.id.action_save:
-                //TODO save note
+                new TitleDialogFragment().show(getSupportFragmentManager(), TitleDialogFragment.TAG);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -192,6 +197,21 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     @Override
     public void showError(Throwable error) {
         Timber.e(error, "There was a problem retrieving the ocr result...");
+    }
+
+    @Override
+    public void noteCreatedSuccessfully() {
+        startActivity(MainActivity.getStartIntent(this,true));
+        finish();
+    }
+
+    @Override
+    public void showProgress(boolean visible) {
+        if(visible){
+            progress.setVisibility(View.VISIBLE);
+        }else{
+            progress.setVisibility(View.GONE);
+        }
     }
 
 
@@ -272,7 +292,6 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
         Timber.d("BITMAP CREATED");
         createHandwrittenNotePresenter.processImage(draw);
-
     }
 
     @Override
@@ -300,5 +319,10 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
     @Override
     public void onRedoCountChanged(int redoCount) {
+    }
+
+    @Override
+    public void onTitleNoteEntered(String titleNote) {
+        createHandwrittenNotePresenter.createNote(titleNote);
     }
 }

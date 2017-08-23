@@ -61,10 +61,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    public static Intent getStartIntent(Context context) {
+    public static Intent getStartIntent(Context context,boolean clearTop) {
         Intent intent = new Intent(context, MainActivity.class);
+        if(clearTop)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

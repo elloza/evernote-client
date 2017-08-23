@@ -1,16 +1,22 @@
 package com.lozasolutions.evernoteclient.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.rm.freedrawview.FreeDrawSerializableState;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 /**
  * Created by Riccardo on 23/05/2017.
@@ -212,4 +218,55 @@ public class FileHelper {
 
         new Handler(Looper.getMainLooper()).post(runnable);
     }
+
+
+    public static File createTempFileFromBitmap(Bitmap mBitmap,Context context){
+
+        File f3=new File(Environment.getExternalStorageDirectory()+"/inpaint/");
+        if(!f3.exists())
+            f3.mkdirs();
+
+
+        OutputStream outStream = null;
+        File outputFile = null;
+        try {
+            File outputDir = context.getCacheDir(); // context being the Activity pointer
+            outputFile = File.createTempFile("tempImage", "png", outputDir);
+            outStream = new FileOutputStream(outputFile);
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 85, outStream);
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return outputFile;
+    }
+
+    public static File savebitmap(String filename) {
+        String extStorageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString();
+        OutputStream outStream = null;
+
+        File file = new File(filename + ".png");
+        if (file.exists()) {
+            file.delete();
+            file = new File(extStorageDirectory, filename + ".png");
+            Log.e("file exist", "" + file + ",Bitmap= " + filename);
+        }
+        try {
+            // make a new bitmap from your file
+            Bitmap bitmap = BitmapFactory.decodeFile(file.getName());
+
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("file", "" + file);
+        return file;
+
+    }
+
+
 }

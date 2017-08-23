@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.lozasolutions.evernoteclient.features.ocr.OCRManager;
 import com.lozasolutions.evernoteclient.injection.ApplicationContext;
+import com.snatik.storage.Storage;
 
 import javax.inject.Singleton;
 
@@ -44,4 +45,11 @@ public class AppModule {
     OCRManager provideEnglishOcrManager(@ApplicationContext Context context) {
         return new OCRManager("tessdata/eng.traineddata","eng",context);
     }
+
+    @Provides
+    @Singleton
+    Storage provideStorage(@ApplicationContext Context context) {
+        return new Storage(context);
+    }
+
 }

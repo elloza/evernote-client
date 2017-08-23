@@ -29,8 +29,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.rm.freedrawview.FreeDrawView
-        android:id="@+id/free_draw_view"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -38,7 +38,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultOCR"
-        fab:layout_constraintBottom_toTopOf="@+id/guideline" />
+        fab:layout_constraintBottom_toTopOf="@+id/guideline">
+
+        <com.rm.freedrawview.FreeDrawView
+            android:id="@+id/free_draw_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_margin="2dp"
+            />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/txt"
@@ -195,6 +205,25 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/slider_thickness" />
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

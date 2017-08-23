@@ -20,7 +20,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
         super.onCreate(savedInstanceState);
 
         if(splashPresenter.isAuthenticated()){
-            startActivity(MainActivity.getStartIntent(this));
+            startActivity(MainActivity.getStartIntent(this,true));
         }else{
             startActivity(LoginActivity.getStartIntent(this));
         }
