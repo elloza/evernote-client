@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.lozasolutions.evernoteclient.features.ocr.OCRManager;
 import com.lozasolutions.evernoteclient.injection.ApplicationContext;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -34,5 +37,11 @@ public class AppModule {
     @ApplicationContext
     SharedPreferences provideSharedPreference(@ApplicationContext Context context) {
         return context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    OCRManager provideEnglishOcrManager(@ApplicationContext Context context) {
+        return new OCRManager("tessdata/eng.traineddata","eng",context);
     }
 }

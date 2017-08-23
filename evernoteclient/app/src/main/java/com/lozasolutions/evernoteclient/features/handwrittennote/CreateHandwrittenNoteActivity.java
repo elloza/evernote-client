@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -21,9 +22,12 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
 import com.lozasolutions.evernoteclient.injection.component.ActivityComponent;
+import com.lozasolutions.evernoteclient.util.FileHelper;
+import com.rm.freedrawview.FreeDrawSerializableState;
 import com.rm.freedrawview.FreeDrawView;
 import com.rm.freedrawview.PathDrawnListener;
 import com.rm.freedrawview.PathRedoUndoCountChangeListener;
+import com.rm.freedrawview.ResizeBehaviour;
 
 import javax.inject.Inject;
 
@@ -52,13 +56,16 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     SeekBar mAlphaBar;
 
     @Inject
-    CreateHandwrittenNotePresenter detailPresenter;
+    CreateHandwrittenNotePresenter createHandwrittenNotePresenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @BindView(R.id.change_color)
     FloatingActionButton changeColor;
+
+    @BindView(R.id.resultOCR)
+    TextView resultOCR;
 
 
     @BindView(R.id.free_draw_view)
@@ -82,12 +89,43 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
         setTitle(getString(R.string.new_note));
 
+        mFreeDrawView.setResizeBehaviour(ResizeBehaviour.FIT_XY);
+        mFreeDrawView.setOnPathDrawnListener(this);
+        mFreeDrawView.setPathRedoUndoCountChangeListener(this);
+
         if (savedInstanceState != null) {
             currentColor = savedInstanceState.getInt(COLOR);
             mFreeDrawView.setPaintColor(currentColor);
             changeColor.setColorNormal(currentColor);
+
+            // Restore the previous saved state
+            FileHelper.getSavedStoreFromFile(this,
+                    new FileHelper.StateExtractorInterface() {
+                        @Override
+                        public void onStateExtracted(FreeDrawSerializableState state) {
+                            if (state != null) {
+                                mFreeDrawView.restoreStateFromSerializable(state);
+                            }
+
+                        }
+
+                        @Override
+                        public void onStateExtractionError() {
+
+                        }
+                    });
         }
 
+        mAlphaBar.setMax((ALPHA_MAX - ALPHA_MIN) / ALPHA_STEP);
+        int alphaProgress = ((mFreeDrawView.getPaintAlpha() - ALPHA_MIN) / ALPHA_STEP);
+        mAlphaBar.setProgress(alphaProgress);
+        mAlphaBar.setOnSeekBarChangeListener(this);
+
+        mThicknessBar.setMax((THICKNESS_MAX - THICKNESS_MIN) / THICKNESS_STEP);
+        int thicknessProgress = (int)
+                ((mFreeDrawView.getPaintWidth() - THICKNESS_MIN) / THICKNESS_STEP);
+        mThicknessBar.setProgress(thicknessProgress);
+        mThicknessBar.setOnSeekBarChangeListener(this);
 
     }
 
@@ -106,7 +144,7 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_create_note, menu);
         return true;
     }
 
@@ -123,24 +161,32 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        FileHelper.saveStateIntoFile(this, mFreeDrawView.getCurrentViewStateAsSerializable(), null);
+    }
+
+
+    @Override
     protected void inject(ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
 
     @Override
     protected void attachView() {
-        detailPresenter.attachView(this);
+        createHandwrittenNotePresenter.attachView(this);
     }
 
     @Override
     protected void detachPresenter() {
-        detailPresenter.detachView();
+        createHandwrittenNotePresenter.detachView();
     }
 
 
     @Override
     public void showOcrResultRealTime(String result) {
-
+        resultOCR.setText(result);
     }
 
     @Override
@@ -165,9 +211,7 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
     @OnClick(R.id.clear_all)
     public void onClickClear(View v){
-
         mFreeDrawView.undoAll();
-
     }
 
     @OnClick(R.id.change_color)
@@ -226,10 +270,15 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     @Override
     public void onDrawCreated(Bitmap draw) {
 
+        Timber.d("BITMAP CREATED");
+        createHandwrittenNotePresenter.processImage(draw);
+
     }
 
     @Override
     public void onDrawCreationError() {
+
+        Timber.e("ERROR CREATING BITMAP");
 
     }
 
@@ -241,16 +290,15 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     @Override
     public void onNewPathDrawn() {
 
-        //TODO: Send TO OCR
     }
 
     @Override
     public void onUndoCountChanged(int undoCount) {
 
+        mFreeDrawView.getDrawScreenshot(this);
     }
 
     @Override
     public void onRedoCountChanged(int redoCount) {
-
     }
 }

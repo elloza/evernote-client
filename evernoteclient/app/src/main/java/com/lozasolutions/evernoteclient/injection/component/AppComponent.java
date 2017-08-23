@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.lozasolutions.evernoteclient.data.remote.EvernoteAPI;
+import com.lozasolutions.evernoteclient.features.ocr.OCRManager;
 import com.lozasolutions.evernoteclient.injection.ApplicationContext;
 import com.lozasolutions.evernoteclient.injection.module.AppModule;
 
@@ -21,5 +22,7 @@ public interface AppComponent {
     Application application();
 
     EvernoteAPI evernoteAPI();
+
+    OCRManager ocrManager();
 
 }
