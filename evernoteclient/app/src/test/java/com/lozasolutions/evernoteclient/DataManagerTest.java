@@ -60,7 +60,7 @@ public class DataManagerTest {
     @Test
     public void getPokemonCompletesAndEmitsPokemon() {
         String name = "charmander";
-        Pokemon pokemon = TestDataFactory.makePokemon(name);
+        Pokemon pokemon = TestDataFactory.makeNote(name);
         when(mockPokemonService.getPokemon(anyString())).thenReturn(Single.just(pokemon));
 
         dataManager.getPokemon(name).test().assertComplete().assertValue(pokemon);

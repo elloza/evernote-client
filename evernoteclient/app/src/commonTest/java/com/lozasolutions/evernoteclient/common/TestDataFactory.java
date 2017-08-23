@@ -1,14 +1,14 @@
 package com.lozasolutions.evernoteclient.common;
 
+import com.evernote.edam.type.Note;
+import com.lozasolutions.evernoteclient.data.model.response.NamedResource;
+import com.lozasolutions.evernoteclient.data.model.response.Sprites;
+import com.lozasolutions.evernoteclient.data.model.response.Statistic;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-
-import com.lozasolutions.evernoteclient.data.model.response.NamedResource;
-import com.lozasolutions.evernoteclient.data.model.response.Pokemon;
-import com.lozasolutions.evernoteclient.data.model.response.Sprites;
-import com.lozasolutions.evernoteclient.data.model.response.Statistic;
 
 /**
  * Factory class that makes instances of data models with random field values. The aim of this class
@@ -22,21 +22,20 @@ public class TestDataFactory {
         return UUID.randomUUID().toString();
     }
 
-    public static Pokemon makePokemon(String id) {
-        Pokemon pokemon = new Pokemon();
-        pokemon.id = id;
-        pokemon.name = randomUuid() + id;
-        pokemon.stats = makeStatisticList(3);
-        pokemon.sprites = makeSprites();
-        return pokemon;
+    public static Note makeNote(String guid, String title, String content) {
+        Note note = new Note();
+        note.setGuid(guid);
+        note.setTitle(title);
+        note.setContent(content);
+        return note;
     }
 
-    public static List<String> makePokemonNamesList(int count) {
-        List<String> pokemonList = new ArrayList<>();
+    public static List<Note> makeNoteList(int count) {
+        List<Note> noteList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            pokemonList.add(makePokemon(String.valueOf(i)).name);
+            noteList.add(makeNote(String.valueOf(i),String.valueOf(i),String.valueOf(i)));
         }
-        return pokemonList;
+        return noteList;
     }
 
     public static List<String> makePokemonNameList(List<NamedResource> pokemonList) {

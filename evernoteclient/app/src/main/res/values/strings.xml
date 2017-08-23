@@ -21,7 +21,10 @@
     <string name="logo_evernote_description">logo evernote</string>
     <string name="log_in">Log In</string>
     <string name="action_logout">Logout</string>
-    <string name="action_refresh">Refresh</string>
+    <string name="action_order_alphabetically">Order alphabetically</string>
+    <string name="action_order_date_creation">Order by creation date</string>
+    <string name="action_order_date_update">Order by update date</string>
+    <string name="action_save">Save</string>
     <string name="created_at">Created at:</string>
     <string name="updated_at">Updated at:</string>
     <string name="new_note_normal">New input text note</string>
@@ -31,6 +34,28 @@
     <string name="create_new_note">Create new note</string>
     <string name="attach_image">Attach image</string>
     <string name="create">Create</string>
+    <string name="new_note">New note</string>
+
+    <string name="new_note_edit_color">Select color</string>
+    <string name="new_note_edit_undo">Undo</string>
+    <string name="new_note_edit_redo">Redo</string>
+    <string name="new_note_edit_delete">Clean all</string>
+
+    <string name="show_screenshot">Take Screenshot</string>
+    <string name="signature_hint">First and last name</string>
+    <string name="age_hint">Age</string>
+    <string name="signature_label">Insert your signature here</string>
+    <string name="cancel_all">Cancel all</string>
+    <string name="delete_draw">Delete draw</string>
+    <string name="github_hint">Show Git Repository</string>
+    <string name="github_url">https://github.com/RiccardoMoro</string>
+    <string name="error_opening_url">Error opening link</string>
+    <string name="redo">Redo</string>
+    <string name="undo">Undo</string>
+    <string name="stroke_alpha">Stroke alpha</string>
+    <string name="stroke_width">Stroke width</string>
+    <string name="pick_color">Select Color</string>
+    <string name="result_ocr">Result OCR:</string>
 
 
 </resources>

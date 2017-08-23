@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MainMvpView extends MvpView {
 
-    void showNoteList(List<Note> notes);
+    void showNoteList(List<Note> noteList,int offset);
 
     void showProgress(boolean show);
 

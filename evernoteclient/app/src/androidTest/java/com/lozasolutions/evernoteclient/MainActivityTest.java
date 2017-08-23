@@ -60,7 +60,7 @@ public class MainActivityTest {
         List<NamedResource> namedResourceList = TestDataFactory.makeNamedResourceList(5);
         List<String> pokemonList = TestDataFactory.makePokemonNameList(namedResourceList);
         stubDataManagerGetPokemonList(Single.just(pokemonList));
-        stubDataManagerGetPokemon(Single.just(TestDataFactory.makePokemon("id")));
+        stubDataManagerGetPokemon(Single.just(TestDataFactory.makeNote("id")));
         mainActivityTestRule.launchActivity(null);
 
         onView(withText(pokemonList.get(0))).perform(click());

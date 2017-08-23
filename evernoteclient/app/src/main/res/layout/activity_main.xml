@@ -75,7 +75,7 @@
             android:id="@+id/createNoteHandWritten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_icon="@drawable/ic_edit"
+            fab:fab_icon="@drawable/icon_edit_hand"
             fab:fab_colorNormal="@color/primary"
             fab:fab_title="@string/new_note_handwritten"
             fab:fab_colorPressed="@color/primary"/>
@@ -84,7 +84,7 @@
             android:id="@+id/createNoteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_icon="@drawable/ic_edit"
+            fab:fab_icon="@drawable/icon_edit_text"
             fab:fab_colorNormal="@color/primary"
             fab:fab_title="@string/new_note_normal"
             fab:fab_colorPressed="@color/primary"/>

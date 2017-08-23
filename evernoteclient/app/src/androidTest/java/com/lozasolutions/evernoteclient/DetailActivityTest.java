@@ -4,6 +4,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.evernote.edam.type.Note;
 import com.lozasolutions.evernoteclient.common.TestComponentRule;
 import com.lozasolutions.evernoteclient.common.TestDataFactory;
 import com.lozasolutions.evernoteclient.data.model.response.Pokemon;
@@ -41,13 +42,13 @@ public class DetailActivityTest {
     public TestRule chain = RuleChain.outerRule(component).around(detailActivityTestRule);
 
     @Test
-    public void checkPokemonDisplays() {
-        Pokemon pokemon = TestDataFactory.makePokemon("id");
-        stubDataManagerGetPokemon(Single.just(pokemon));
+    public void checkNoteDisplays() {
+        Note note = TestDataFactory.makeNote("id");
+        stubDataManagerGetPokemon(Single.just(note));
         detailActivityTestRule.launchActivity(
-                DetailActivity.getStartIntent(InstrumentationRegistry.getContext(), pokemon.name));
+                DetailActivity.getStartIntent(InstrumentationRegistry.getContext(), note.name));
 
-        for (Statistic stat : pokemon.stats) {
+        for (Statistic stat : note.stats) {
             onView(withText(stat.stat.name)).check(matches(isDisplayed()));
         }
     }
@@ -55,7 +56,7 @@ public class DetailActivityTest {
     @Test
     public void checkErrorViewDisplays() {
         stubDataManagerGetPokemon(Single.error(new RuntimeException()));
-        Pokemon pokemon = TestDataFactory.makePokemon("id");
+        Pokemon pokemon = TestDataFactory.makeNote("id");
         detailActivityTestRule.launchActivity(
                 DetailActivity.getStartIntent(InstrumentationRegistry.getContext(), pokemon.name));
         ErrorTestUtil.checkErrorViewsDisplay();

@@ -54,7 +54,7 @@ public class MainPresenterTest {
 
     @Test
     public void getPokemonReturnsPokemonNames() throws Exception {
-        List<String> pokemonList = TestDataFactory.makePokemonNamesList(10);
+        List<String> pokemonList = TestDataFactory.makeNoteList(10);
         when(mockDataManager.getPokemonList(10)).thenReturn(Single.just(pokemonList));
 
         mainPresenter.getNotes(10,false);

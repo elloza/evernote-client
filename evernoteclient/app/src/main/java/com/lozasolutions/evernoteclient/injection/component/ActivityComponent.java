@@ -1,6 +1,7 @@
 package com.lozasolutions.evernoteclient.injection.component;
 
 import com.lozasolutions.evernoteclient.features.detail.DetailActivity;
+import com.lozasolutions.evernoteclient.features.handwrittennote.CreateHandwrittenNoteActivity;
 import com.lozasolutions.evernoteclient.features.login.LoginActivity;
 import com.lozasolutions.evernoteclient.features.main.MainActivity;
 import com.lozasolutions.evernoteclient.features.splashscreen.SplashActivity;
@@ -20,4 +21,7 @@ public interface ActivityComponent {
     void inject(LoginActivity loginActivity);
 
     void inject(DetailActivity detailActivity);
+
+    void inject(CreateHandwrittenNoteActivity createHandwrittenNoteActivity);
+
 }

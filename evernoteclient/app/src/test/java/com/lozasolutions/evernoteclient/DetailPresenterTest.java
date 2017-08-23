@@ -52,7 +52,7 @@ public class DetailPresenterTest {
 
     @Test
     public void getPokemonDetailReturnsPokemon() throws Exception {
-        Pokemon pokemon = TestDataFactory.makePokemon("id");
+        Pokemon pokemon = TestDataFactory.makeNote("id");
         when(mockDataManager.getPokemon(anyString())).thenReturn(Single.just(pokemon));
 
         detailPresenter.getNoteComplete(anyString());

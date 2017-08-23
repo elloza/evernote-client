@@ -2,9 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_refresh"
-        android:title="@string/action_refresh"
-        android:icon="@android:drawable/ic_menu_rotate"
+    <item android:id="@+id/action_sort_alphabetically"
+        android:title="@string/action_order_alphabetically"
+        android:icon="@drawable/sort_alphabetically"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_sort_date_creation"
+        android:title="@string/action_order_date_creation"
+        android:icon="@drawable/sort_date_creation"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_sort_date_update"
+        android:title="@string/action_order_date_update"
+        android:icon="@drawable/sort_date_edit"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_logout"
