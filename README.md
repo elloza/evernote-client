@@ -1,6 +1,14 @@
 # evernote-client
 
-![Gif](http://g.recordit.co/7qpIRazdaP.gif)
+<p align="center">
+  <img src="https://media.giphy.com/media/me6D7yzBD8wlq/giphy.gif">
+  <img src="https://media.giphy.com/media/l5qnZd43AZgdy/giphy.gif">
+ </p>
+ 
+ <p align="center">
+  <img src="https://media.giphy.com/media/BuDd9KnL62c6I/giphy.gif">
+  <img src="https://media.giphy.com/media/qwqpx9UzUCLEA/giphy.gif">
+</p>
 
 
 ## Description
