@@ -3,15 +3,12 @@ package com.lozasolutions.evernoteclient.common.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.lozasolutions.evernoteclient.injection.ApplicationContext;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.lozasolutions.evernoteclient.data.DataManager;
-import com.lozasolutions.evernoteclient.data.remote.PokemonService;
-import com.lozasolutions.evernoteclient.injection.ApplicationContext;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * Provides application-level dependencies for an app running on a testing environment This allows
@@ -40,15 +37,8 @@ public class ApplicationTestModule {
     /**
      * ********** MOCKS ***********
      */
-    @Provides
-    @Singleton
-    DataManager providesDataManager() {
-        return mock(DataManager.class);
-    }
 
-    @Provides
-    @Singleton
-    PokemonService provideMvpBoilerplateService() {
-        return mock(PokemonService.class);
-    }
+
+    //TODO IMPLEMENT MOCKS
+
 }

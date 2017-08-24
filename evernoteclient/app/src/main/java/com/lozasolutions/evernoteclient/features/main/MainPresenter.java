@@ -1,6 +1,7 @@
 package com.lozasolutions.evernoteclient.features.main;
 
 import com.evernote.edam.notestore.NoteFilter;
+import com.evernote.edam.notestore.NoteList;
 import com.evernote.edam.type.Note;
 import com.evernote.edam.type.NoteSortOrder;
 import com.lozasolutions.evernoteclient.data.remote.EvernoteAPI;
@@ -14,13 +15,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
+
 @ConfigPersistent
 public class MainPresenter extends BasePresenter<MainMvpView> {
 
     private final EvernoteAPI evernoteAPI;
     private List<Note> noteList;
 
-    private int currentOrder = 0;
+    private int currentOrder = DATE_CREATION_DSC;
 
     private final static int DATE_CREATION_ASC = 1;
     private final static int DATE_CREATION_DSC = 2;
@@ -28,6 +32,8 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     private final static int ALPHABETICALLY_DSC = 4;
     private final static int DATE_UPDATED_ASC = 5;
     private final static int DATE_UPDATED_DSC = 6;
+
+    private final static int DEFAULT_LIMIT = 10;
 
 
     @Inject
@@ -163,10 +169,15 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
         checkViewAttached();
         getView().showProgress(true);
 
-        evernoteAPI.addNote(note, null).compose(SchedulerUtils.ioToMain()).subscribe(
-                createdNote -> {
+        evernoteAPI.addNote(note, null).compose(SchedulerUtils.ioToMain()).flatMap(new Function<Note, SingleSource<NoteList>>() {
+            @Override
+            public SingleSource<NoteList> apply(Note note) throws Exception {
+                return evernoteAPI.getNotes(new NoteFilterEvernote(getNotefilterByOption(currentOrder)), 0,DEFAULT_LIMIT );
+            }
+        }).subscribe(
+                noteListObtained -> {
+                    this.noteList = noteListObtained.getNotes();
                     getView().showProgress(false);
-                    noteList.add(createdNote);
                     getView().showNoteList(noteList,0);
                 },
                 throwable -> {

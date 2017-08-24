@@ -21,8 +21,4 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         super.attachView(mvpView);
     }
 
-    public void getPokemon(String name) {
-        checkViewAttached();
-        //TODO
-    }
 }

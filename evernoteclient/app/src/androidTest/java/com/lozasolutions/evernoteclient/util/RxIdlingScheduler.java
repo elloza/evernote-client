@@ -6,9 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
-import rx.Observable;
-import rx.Subscription;
-import rx.plugins.RxJavaObservableExecutionHook;
 
 /**
  * RxJava Observable execution hook that handles updating the active subscription count for a given

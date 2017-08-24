@@ -7,14 +7,20 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.lozasolutions.evernoteclient.R;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.lozasolutions.evernoteclient.R;
 
 public class ErrorView extends LinearLayout {
 
     private ErrorListener errorListener;
+
+    @BindView(R.id.text_error_message)
+    TextView errorText;
 
     public ErrorView(Context context) {
         super(context);
@@ -57,5 +63,9 @@ public class ErrorView extends LinearLayout {
 
     public interface ErrorListener {
         void onReloadData();
+    }
+
+    public void setTextError(String textError){
+        errorText.setText(textError);
     }
 }

@@ -10,7 +10,6 @@ import com.lozasolutions.evernoteclient.injection.component.DaggerAppComponent;
 import com.lozasolutions.evernoteclient.injection.module.AppModule;
 import com.lozasolutions.evernoteclient.injection.module.NetworkModule;
 import com.singhajit.sherlock.core.Sherlock;
-import com.squareup.leakcanary.LeakCanary;
 import com.tspoon.traceur.Traceur;
 
 import timber.log.Timber;
@@ -30,7 +29,7 @@ public class EvernoteClientApplication extends MultiDexApplication {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
             Stetho.initializeWithDefaults(this);
-            LeakCanary.install(this);
+            //LeakCanary.install(this);
             Sherlock.init(this);
             Traceur.enableLogging();
         }

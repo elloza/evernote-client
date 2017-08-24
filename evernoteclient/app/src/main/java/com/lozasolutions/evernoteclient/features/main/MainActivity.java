@@ -226,17 +226,18 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
         noteRecyclerView.setVisibility(View.GONE);
         swipeRefreshLayout.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
-        Timber.e(error, "There was an error retrieving the pokemon");
+        errorView.setTextError(getString(R.string.error_message_notes));
+        Timber.e(error, getString(R.string.error_message_notes));
     }
 
     @Override
     public void showNoteCreationError(Throwable error) {
-        ViewUtil.showSnackbar(swipeRefreshLayout, "Create note failed");
+        ViewUtil.showSnackbar(swipeRefreshLayout, getString(R.string.error_creating_note));
     }
 
     @Override
     public void showNoteCreationSuccessfully() {
-        ViewUtil.showSnackbar(swipeRefreshLayout, "Create note success");
+        ViewUtil.showSnackbar(swipeRefreshLayout, R.string.note_created_successfully);
     }
 
     @Override

@@ -1,11 +1,14 @@
 package com.lozasolutions.evernoteclient.features.handwrittennote;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,6 +23,9 @@ import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.lozasolutions.evernoteclient.R;
 import com.lozasolutions.evernoteclient.features.base.BaseActivity;
 import com.lozasolutions.evernoteclient.features.main.MainActivity;
@@ -60,6 +66,9 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     @BindView(R.id.progress)
     RelativeLayout progress;
 
+    @BindView(R.id.main)
+    ConstraintLayout constraintLayout;
+
     @Inject
     CreateHandwrittenNotePresenter createHandwrittenNotePresenter;
 
@@ -86,6 +95,8 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        configurePermissions();
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -196,6 +207,9 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
 
     @Override
     public void showError(Throwable error) {
+
+        Snackbar bar = Snackbar.make(constraintLayout, R.string.error_creating_note, Snackbar.LENGTH_LONG);
+        bar.show();
         Timber.e(error, "There was a problem retrieving the ocr result...");
     }
 
@@ -325,4 +339,23 @@ public class CreateHandwrittenNoteActivity extends BaseActivity implements Creat
     public void onTitleNoteEntered(String titleNote) {
         createHandwrittenNotePresenter.createNote(titleNote);
     }
+
+    private void configurePermissions(){
+
+        PermissionListener dialogPermissionListener =
+                DialogOnDeniedPermissionListener.Builder
+                        .withContext(this)
+                        .withTitle(R.string.storage_permission_title)
+                        .withMessage(R.string.storage_permission_conten)
+                        .withButtonText(android.R.string.ok)
+                        .withIcon(R.mipmap.ic_launcher)
+                        .build();
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(dialogPermissionListener)
+                .check();
+
+
+    }
+
 }

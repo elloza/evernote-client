@@ -5,18 +5,16 @@
     <!--<string name="dialog_action_cancel">Cancel</string>-->
     <string name="dialog_error_title">Sorry</string>
 
-    <!-- Detail Activity -->
-    <!--<string name="text_pokemon_id">Id: %s</string>-->
-    <!--<string name="text_pokemon_name">Name: %s</string>-->
-    <!--<string name="text_pokemon_experience">Experience: %s</string>-->
 
     <!-- Error View -->
     <string name="error_title">Oops</string>
-    <string name="error_message">There was a problem loading the pokemon, please try again!</string>
+    <string name="error_message_notes">There was a problem loading notes, please try again!</string>
+    <string name="error_message_note">There was a problem loading the note detail, please try again!</string>
+    <string name="error_message_default">Oops! An error happened!</string>
+
     <string name="error_reload">Reload</string>
     <string name="title_activity_maps_sample">Map</string>
     <string name="error_something_bad_happened">Something bad happened. Please try again.</string>
-
 
     <string name="logo_evernote_description">logo evernote</string>
     <string name="log_in">Log In</string>
@@ -57,6 +55,12 @@
     <string name="stroke_width">Stroke width</string>
     <string name="pick_color">Select Color</string>
     <string name="result_ocr">Result OCR:</string>
+    <string name="storage_permission_title">Storage Permission</string>
+    <string name="storage_permission_conten">Storage permission it\'s necessary to save the handwritten note</string>
+    <string name="error_creating_note">Error creating the note</string>
+    <string name="note_created_successfully">Create note success</string>
+    <string name="content">Content:</string>
+    <string name="error_retrieving_notes">There was a problem retrieving the notes</string>
 
 
 </resources>

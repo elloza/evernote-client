@@ -10,7 +10,6 @@ import com.lozasolutions.evernoteclient.EvernoteClientApplication;
 import com.lozasolutions.evernoteclient.common.injection.component.DaggerTestComponent;
 import com.lozasolutions.evernoteclient.common.injection.component.TestComponent;
 import com.lozasolutions.evernoteclient.common.injection.module.ApplicationTestModule;
-import com.lozasolutions.evernoteclient.data.DataManager;
 
 /**
  * Test rule that creates and sets a Dagger TestComponent into the application overriding the
@@ -38,10 +37,6 @@ public class TestComponentRule implements TestRule {
 
     public Context getContext() {
         return context;
-    }
-
-    public DataManager getMockApiManager() {
-        return testComponent.apiManager();
     }
 
     @Override

@@ -126,12 +126,13 @@ ext {
     colorPicker = "com.github.QuadFlask:colorpicker:0.0.13"
     ocr =  "com.rmtheis:tess-two:8.0.0"
     easyStorage =  "com.snatik:storage:2.1.0"
+    permissions = "com.karumi:dexter:4.1.0"
 
     googlePlayLibs = googlePlay.values()
     supportLibs = supportDeps.values()
     networkLibs = retrofit.values() + okHttp.values()
     rxJavaLibs = rxJava.values()
-    otherLibs = [butterKnife, timber, dagger, glide, evernote,evernote_intent,drawingView,floatingButton,colorPicker,ocr,easyStorage]
+    otherLibs = [butterKnife, timber, dagger, glide, evernote,evernote_intent,drawingView,floatingButton,colorPicker,ocr,easyStorage,permissions]
 
     debugLibs = onlyDebug.values() + leakCannary
     releaseLibs = onlyRelease.values() + leakCannary

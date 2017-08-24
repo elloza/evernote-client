@@ -124,7 +124,6 @@ public class CreateHandwrittenNotePresenter extends BasePresenter<CreateHandwrit
             evernoteAPI.addNote(note, null).compose(SchedulerUtils.ioToMain()).subscribe(
                     createdNote -> {
                         isViewAttached();
-                        getView().showProgress(false);
                         getView().noteCreatedSuccessfully();
                         if(file != null)
                             file.delete();

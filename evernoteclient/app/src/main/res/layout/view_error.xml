@@ -17,7 +17,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center_horizontal"
         android:padding="16dp"
-        android:text="@string/error_message"
+        android:text="@string/error_message_default"
         android:textSize="@dimen/text_body" />
 
     <Button

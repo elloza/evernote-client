@@ -46,9 +46,6 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.layout_content)
-    View contentLayout;
-
     @BindView(R.id.webView)
     WebView webView;
 
@@ -128,7 +125,8 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
             imageNote.setVisibility(View.GONE);
         }
 
-        contentLayout.setVisibility(View.VISIBLE);
+        errorView.setVisibility(View.GONE);
+        progress.setVisibility(View.GONE);
 
         mHtml = note.getContent();
 
@@ -147,9 +145,9 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, Error
 
     @Override
     public void showError(Throwable error) {
-        contentLayout.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
-        Timber.e(error, "There was a problem retrieving the note...");
+        errorView.setTextError(getString(R.string.error_message_note));
+        Timber.e(error, getString(R.string.error_message_note));
     }
 
 

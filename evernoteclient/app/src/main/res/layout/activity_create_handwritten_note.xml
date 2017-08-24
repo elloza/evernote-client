@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    android:id="@+id/main">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -44,9 +45,8 @@
             android:id="@+id/free_draw_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:layout_margin="2dp"
-            />
+            android:background="@color/white" />
     </LinearLayout>
 
 
@@ -70,13 +70,15 @@
     <TextView
         android:id="@+id/resultOCR"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
+        android:maxLines="10"
         android:padding="12dp"
+        android:scrollbars="vertical"
         android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/txt"
         app:layout_constraintStart_toStartOf="@+id/txt"
@@ -208,22 +210,20 @@
 
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <ProgressBar
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:visibility="visible" />
 
     </RelativeLayout>
-
-
 
 
 </android.support.constraint.ConstraintLayout>
