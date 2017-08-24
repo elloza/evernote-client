@@ -1,6 +1,6 @@
 # evernote-client
 
-![Alt Text](http://g.recordit.co/7qpIRazdaP.gif)
+![Gif](http://g.recordit.co/7qpIRazdaP.gif)
 
 
 ## Description
