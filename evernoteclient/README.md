@@ -2,6 +2,8 @@
 A simple Evernote Client
 
 <p align="center">
+  <img src="https://media.giphy.com/media/me6D7yzBD8wlq/giphy.gif">
+  <img src="http://g.recordit.co/7qpIRazdaP.gif">
   <img src="http://g.recordit.co/7qpIRazdaP.gif">
 </p>
 
