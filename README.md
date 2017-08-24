@@ -1,5 +1,8 @@
 # evernote-client
 
+![Alt Text](http://g.recordit.co/7qpIRazdaP.gif)
+
+
 ## Description
 
 This is a small client for Evernote SDK.
@@ -14,7 +17,7 @@ The application must satisfy the following functional requirements:
 	* [X] Normal text input notes
 - [X] An activity to show the detail of the note (Not edit)
 - [X] Logout of the application
-- [ ] Android permissions
+- [X] Android permissions
 - [ ] Test WritePadSDK
 - [ ] Write tests
 
