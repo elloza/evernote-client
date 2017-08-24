@@ -4,11 +4,12 @@ A simple Evernote Client
 <p align="center">
   <img src="https://media.giphy.com/media/me6D7yzBD8wlq/giphy.gif">
   <img src="https://media.giphy.com/media/l5qnZd43AZgdy/giphy.gif">
+  <img src="https://media.giphy.com/media/BuDd9KnL62c6I/giphy.gif">
  </p>
  
- <p align="center">
-  <img src="https://media.giphy.com/media/BuDd9KnL62c6I/giphy.gif">
+<p align="center">
   <img src="https://media.giphy.com/media/qwqpx9UzUCLEA/giphy.gif">
+  <img src="https://media.giphy.com/media/Nv7OQN3E4kisg/giphy.gif">
 </p>
 
 ## This project uses:
