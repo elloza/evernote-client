@@ -2,8 +2,7 @@
 A simple Evernote Client
 
 <p align="center">
-  <img src="http://g.recordit.co/L5selg7aIv.gif" width="250">
-  <img src="http://g.recordit.co/xt4o5wTySc.gif">
+  <img src="http://g.recordit.co/7qpIRazdaP.gif" width="250">
 </p>
 
 ## This project uses:
